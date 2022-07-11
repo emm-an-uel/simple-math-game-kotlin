@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment">
+    tools:context=".GameFragment">
 
     <TextView
         android:id="@+id/textview_first"
@@ -44,7 +44,6 @@
         android:id="@+id/userAnswer"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
         android:ems="10"
         android:inputType="number"
         android:textSize="30sp"

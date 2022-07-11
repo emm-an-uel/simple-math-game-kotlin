@@ -9,14 +9,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.simplemathgamekotlin.databinding.FragmentSecondBinding
+import com.example.simplemathgamekotlin.databinding.FragmentScoreBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class ScoreFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentScoreBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -27,12 +27,12 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentScoreBinding.inflate(inflater, container, false)
         return binding.root
 
     }
 
-    val args: SecondFragmentArgs by navArgs()
+    val args: ScoreFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

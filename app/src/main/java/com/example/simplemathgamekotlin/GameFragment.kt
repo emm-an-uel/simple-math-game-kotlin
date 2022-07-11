@@ -10,12 +10,12 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.example.simplemathgamekotlin.databinding.FragmentFirstBinding
+import com.example.simplemathgamekotlin.databinding.FragmentGameBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class GameFragment : Fragment() {
 
     // DECLARING VARIABLES
     val random = java.util.Random()
@@ -44,7 +44,7 @@ class FirstFragment : Fragment() {
         displayQuestions(view)
     }
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentGameBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -55,7 +55,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentGameBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -95,7 +95,7 @@ class FirstFragment : Fragment() {
 
         // GO TO SECOND FRAGMENT (highscores)
         view.findViewById<Button>(R.id.button_goto_second_fragment).setOnClickListener() {
-            val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(score, questionNumber)
+            val action = GameFragmentDirections.actionFirstFragmentToSecondFragment(score, questionNumber)
             findNavController().navigate(action)
         }
     }
