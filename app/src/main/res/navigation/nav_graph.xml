@@ -24,5 +24,11 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <argument
+            android:name="score"
+            app:argType="integer" />
+        <argument
+            android:name="questionNumber"
+            app:argType="integer" />
     </fragment>
 </navigation>

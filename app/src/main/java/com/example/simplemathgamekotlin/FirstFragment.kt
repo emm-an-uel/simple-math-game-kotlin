@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.simplemathgamekotlin.databinding.FragmentFirstBinding
 
 /**
@@ -21,14 +22,14 @@ class FirstFragment : Fragment() {
     var A = random.nextInt(15)
     var B = random.nextInt(15)
     var solution = A+B
-    var totalQuestions = 0
+    var questionNumber = 0
     var score = 0
 
     private fun displayQuestions(view:View) {
         val question = getString(R.string.question, A, B, "?")
         view.findViewById<TextView>(R.id.textview_first).text = question
 
-        val scoreValue = getString(R.string.string_score, score, totalQuestions)
+        val scoreValue = getString(R.string.string_score, score, questionNumber)
         view.findViewById<TextView>(R.id.score).text = scoreValue
     }
 
@@ -36,7 +37,7 @@ class FirstFragment : Fragment() {
         A = random.nextInt(15)
         B = random.nextInt(15)
         solution = A+B
-        totalQuestions++ // adds 1 to var totalQuestions
+        questionNumber++ // adds 1 to var totalQuestions
         view.findViewById<EditText>(R.id.userAnswer).setText("") // reset to blank
 
         // DISPLAY NEW QUESTION
@@ -68,7 +69,12 @@ class FirstFragment : Fragment() {
         // CHECK ANSWER
         view.findViewById<Button>(R.id.button_check).setOnClickListener() {
             val userAnswer = view.findViewById<EditText>(R.id.userAnswer)
-            if (userAnswer.text.toString() != "") { // if not empty
+            if (userAnswer.text.toString() == "") { // if empty
+                val toastEmpty = Toast.makeText(context, "Answer the question!", Toast.LENGTH_SHORT)
+                toastEmpty.show()
+            }
+
+            else { // if not empty
                 val userAnswerString = userAnswer.text.toString()
                 val userAnswerInt = userAnswerString.toInt()
 
@@ -85,6 +91,12 @@ class FirstFragment : Fragment() {
 
                 newQuestions(view)
             }
+        }
+
+        // GO TO SECOND FRAGMENT (highscores)
+        view.findViewById<Button>(R.id.button_goto_second_fragment).setOnClickListener() {
+            val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(score, questionNumber)
+            findNavController().navigate(action)
         }
     }
 

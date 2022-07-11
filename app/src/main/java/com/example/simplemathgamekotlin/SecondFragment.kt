@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.simplemathgamekotlin.databinding.FragmentSecondBinding
 
 /**
@@ -29,10 +32,17 @@ class SecondFragment : Fragment() {
 
     }
 
+    val args: SecondFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
+        val questionNumber = args.questionNumber
+        val score = args.score
+        val currentScore = getString(R.string.results, score, questionNumber)
+        view.findViewById<TextView>(R.id.highscore_table).text = currentScore
+
+        view.findViewById<Button>(R.id.button_goto_first_fragment).setOnClickListener() {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
     }
