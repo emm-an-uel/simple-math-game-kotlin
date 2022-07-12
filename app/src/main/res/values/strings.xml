@@ -2,14 +2,15 @@
     <string name="app_name">simple math game kotlin</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">Math Game</string>
-    <string name="second_fragment_label">Score</string>
+    <string name="game_fragment_label">Math Game</string>
+    <string name="score_fragment_label">Score</string>
     <string name="see_scores">see scores</string>
     <string name="play_again">play again</string>
 
     <string name="question">%s + %s = %s</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="check">check</string>
     <string name="string_score">Score: %s / %s</string>
-    <string name="results">Your score: %s / %s</string>
+    <string name="results">%s\'s score: %s / %s</string>
+    <string name="play_game">play game</string>
+    <string name="new_user">new user</string>
 </resources>

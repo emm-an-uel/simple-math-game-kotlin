@@ -37,13 +37,19 @@ class ScoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val username = args.username
         val questionNumber = args.questionNumber
         val score = args.score
-        val currentScore = getString(R.string.results, score, questionNumber)
+        val currentScore = getString(R.string.results, username, score, questionNumber)
         view.findViewById<TextView>(R.id.highscore_table).text = currentScore
 
         view.findViewById<Button>(R.id.button_goto_first_fragment).setOnClickListener() {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            val action = ScoreFragmentDirections.actionSecondFragmentToFirstFragment(username)
+            findNavController().navigate(action)
+        }
+
+        view.findViewById<Button>(R.id.button_goto_login_fragment).setOnClickListener() {
+            findNavController().navigate(R.id.action_ScoreFragment_to_LoginFragment)
         }
     }
 

@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.simplemathgamekotlin.databinding.FragmentGameBinding
 
 /**
@@ -60,8 +61,12 @@ class GameFragment : Fragment() {
 
     }
 
+    val args: GameFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val username = args.username
 
         // DISPLAY FIRST QUESTION AND numQuestions, score
         displayQuestions(view)
@@ -95,7 +100,7 @@ class GameFragment : Fragment() {
 
         // GO TO SECOND FRAGMENT (highscores)
         view.findViewById<Button>(R.id.button_goto_second_fragment).setOnClickListener() {
-            val action = GameFragmentDirections.actionFirstFragmentToSecondFragment(score, questionNumber)
+            val action = GameFragmentDirections.actionFirstFragmentToSecondFragment(score, questionNumber, username)
             findNavController().navigate(action)
         }
     }
