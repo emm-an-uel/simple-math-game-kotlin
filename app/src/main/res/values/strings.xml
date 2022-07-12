@@ -4,6 +4,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="game_fragment_label">Math Game</string>
     <string name="score_fragment_label">Score</string>
+    <string name="login_fragment_label">Login</string>
     <string name="see_scores">see scores</string>
     <string name="play_again">play again</string>
 
@@ -13,4 +14,5 @@
     <string name="results">%s\'s score: %s / %s</string>
     <string name="play_game">play game</string>
     <string name="new_user">new user</string>
+    <string name="username_hint">Username</string>
 </resources>
