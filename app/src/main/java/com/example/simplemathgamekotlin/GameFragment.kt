@@ -25,11 +25,13 @@ class GameFragment : Fragment() {
     var solution = A+B
     var questionNumber = 0
     var score = 0
-    var wrongAnswers = mutableListOf<String>()
+    var wrongQuestions = mutableListOf<String>()
+    var correctAnswer = mutableListOf<String>()
 
-    private fun wrongAnswer(view:View) {
-        val currentQuestion = getString(R.string.question, A, B, "?")
-        wrongAnswers.add(currentQuestion)
+    private fun wrongAnswer(view:View, userAnswer:String) {
+        val currentQuestion = getString(R.string.question, A, B, userAnswer)
+        wrongQuestions.add(currentQuestion)
+        correctAnswer.add(solution.toString())
     }
 
     private fun displayQuestions(view:View) {
@@ -89,16 +91,16 @@ class GameFragment : Fragment() {
                 val userAnswerString = userAnswer.text.toString()
                 val userAnswerInt = userAnswerString.toInt()
 
-                if (userAnswerInt == solution) {
+                if (userAnswerInt == solution) { // if correct
                     val toastCheck = Toast.makeText(context, "Correct", Toast.LENGTH_SHORT)
                     toastCheck.show()
                     score++ // adds 1 to var score
                 }
 
-                else {
+                else { // if wrong
                     val toastCheck = Toast.makeText(context, "Wrong", Toast.LENGTH_SHORT)
                     toastCheck.show()
-                    wrongAnswer(view) // function "wrongAnswer" defined above
+                    wrongAnswer(view, userAnswerString) // function "wrongAnswer" defined above
                 }
 
                 newQuestions(view)
@@ -107,10 +109,11 @@ class GameFragment : Fragment() {
 
         // GO TO SECOND FRAGMENT (highscores)
         view.findViewById<Button>(R.id.button_goto_second_fragment).setOnClickListener() {
-            // convert wrongAnswers<List> into wrongAnswersString<String>
-            val wrongAnswersString = wrongAnswers.joinToString (separator = "-")
+            // convert wrongQuestionsList and wrongAnswersList into strings
+            val wrongQuestionsString = wrongQuestions.joinToString (separator = "-")
+            val correctAnswersString = correctAnswer.joinToString (separator = "-")
 
-            val action = GameFragmentDirections.actionFirstFragmentToSecondFragment(score, questionNumber, username, wrongAnswersString)
+            val action = GameFragmentDirections.actionFirstFragmentToSecondFragment(score, questionNumber, username, wrongQuestionsString, correctAnswersString)
             findNavController().navigate(action)
         }
     }

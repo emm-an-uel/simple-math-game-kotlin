@@ -1,5 +1,6 @@
 package com.example.simplemathgamekotlin
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -44,17 +47,50 @@ class ScoreFragment : Fragment() {
         val currentScore = getString(R.string.results, username, score, questionNumber)
         view.findViewById<TextView>(R.id.highscore_table).text = currentScore
 
-        val wrongAnswersString = args.wrongAnswers
-        val wrongAnswersList: List<String> = wrongAnswersString.split("-").toList()
+        if (questionNumber == 0) { // if no questions answered
+            view.findViewById<TextView>(R.id.textView_wrongList).text = "Should've tried some questions"
+        }
 
-        // for each string in wrongAnswersList, print into its own line in fragment_score.xml
-        val linearLayout = view.findViewById<LinearLayout>(R.id.linearLayout)
-        for (string in wrongAnswersList) {
-            // create a new TextView and fill it with var "string"
-            val textView = TextView(context)
-            textView.text = string
-            textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            linearLayout.addView(textView)
+        else { // if some questions answered
+
+            val wrongQuestionsString = args.wrongQuestions
+            val correctAnswersString = args.correctAnswers
+
+            if (correctAnswersString == "") { // if no wrong answers
+                view.findViewById<TextView>(R.id.textView_wrongList).text = "Congratulations!" // set text to "Congratulations!"
+            }
+
+            else { // if there are wrong answers
+                val wrongQuestionsList: List<String> = wrongQuestionsString.split("-").toList()
+                val correctAnswersList: List<String> = correctAnswersString.split("-").toList()
+                val numOfMistakes = wrongQuestionsList.size
+
+                // for each string in wrongAnswersList, print into its own line in fragment_score.xml
+                val linearLayoutQuestions = view.findViewById<LinearLayout>(R.id.linearLayoutQuestions)
+                val linearLayoutSolutions = view.findViewById<LinearLayout>(R.id.linearLayoutSolutions)
+
+                var i = 0
+                while (i < numOfMistakes) {
+                    val question = wrongQuestionsList[i] // declaring values
+                    val answer = correctAnswersList[i]
+
+                    val textViewQuestion = TextView(context) // new textviews
+                    val textViewAnswer = TextView(context)
+
+                    textViewQuestion.text = question
+                    textViewAnswer.text = answer
+
+                    textViewQuestion.textAlignment = View.TEXT_ALIGNMENT_VIEW_END
+                    textViewAnswer.textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+                    textViewAnswer.setTextColor(getResources().getColor(R.color.pastel_orange, getResources().newTheme()));
+                    textViewAnswer.setPadding(100,0,0,0)
+
+                    linearLayoutQuestions.addView(textViewQuestion)
+                    linearLayoutSolutions.addView(textViewAnswer)
+
+                    i++
+                }
+            }
         }
 
         view.findViewById<Button>(R.id.button_goto_first_fragment).setOnClickListener {

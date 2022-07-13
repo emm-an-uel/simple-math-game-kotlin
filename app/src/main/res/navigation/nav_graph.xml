@@ -39,7 +39,10 @@
         <action
             android:id="@+id/action_ScoreFragment_to_LoginFragment"
             app:destination="@id/LoginFragment" />
-        <argument android:name="wrongAnswers"
+        <argument
+            android:name="wrongQuestions"
+            app:argType="string" />
+        <argument android:name="correctAnswers"
             app:argType="string" />
     </fragment>
     <fragment
