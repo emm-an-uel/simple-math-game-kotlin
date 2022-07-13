@@ -39,6 +39,8 @@
         <action
             android:id="@+id/action_ScoreFragment_to_LoginFragment"
             app:destination="@id/LoginFragment" />
+        <argument android:name="wrongAnswers"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/LoginFragment"

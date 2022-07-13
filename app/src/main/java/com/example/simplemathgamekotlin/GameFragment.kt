@@ -25,6 +25,12 @@ class GameFragment : Fragment() {
     var solution = A+B
     var questionNumber = 0
     var score = 0
+    var wrongAnswers = mutableListOf<String>()
+
+    private fun wrongAnswer(view:View) {
+        val currentQuestion = getString(R.string.question, A, B, "?")
+        wrongAnswers.add(currentQuestion)
+    }
 
     private fun displayQuestions(view:View) {
         val question = getString(R.string.question, A, B, "?")
@@ -34,12 +40,12 @@ class GameFragment : Fragment() {
         view.findViewById<TextView>(R.id.score).text = scoreValue
     }
 
-    private fun newQuestions(view:View) {
+    private fun newQuestions(view: View) {
         A = random.nextInt(15)
         B = random.nextInt(15)
-        solution = A+B
+        solution = A + B
         questionNumber++ // adds 1 to var totalQuestions
-        view.findViewById<EditText>(R.id.userAnswer).setText("") // reset to blank
+        view.findViewById<EditText>(R.id.userAnswer).setText("") // reset userAnswer to blank
 
         // DISPLAY NEW QUESTION
         displayQuestions(view)
@@ -92,6 +98,7 @@ class GameFragment : Fragment() {
                 else {
                     val toastCheck = Toast.makeText(context, "Wrong", Toast.LENGTH_SHORT)
                     toastCheck.show()
+                    wrongAnswer(view) // function "wrongAnswer" defined above
                 }
 
                 newQuestions(view)
@@ -100,7 +107,10 @@ class GameFragment : Fragment() {
 
         // GO TO SECOND FRAGMENT (highscores)
         view.findViewById<Button>(R.id.button_goto_second_fragment).setOnClickListener() {
-            val action = GameFragmentDirections.actionFirstFragmentToSecondFragment(score, questionNumber, username)
+            // convert wrongAnswers<List> into wrongAnswersString<String>
+            val wrongAnswersString = wrongAnswers.joinToString (separator = "-")
+
+            val action = GameFragmentDirections.actionFirstFragmentToSecondFragment(score, questionNumber, username, wrongAnswersString)
             findNavController().navigate(action)
         }
     }

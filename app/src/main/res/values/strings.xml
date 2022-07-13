@@ -15,4 +15,5 @@
     <string name="play_game">play game</string>
     <string name="new_user">new user</string>
     <string name="username_hint">Username</string>
+    <string name="your_mistakes">Your mistakes:</string>
 </resources>
